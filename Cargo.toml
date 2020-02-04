@@ -1,0 +1,19 @@
+[package]
+name = "stringly"
+version = "0.1.0-unreleased"
+authors = ["Evalf <info@evalf.com>"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/evalf/stringly-rust"
+keywords = ["stringly", "serde", "serialization"]
+categories = ["encoding"]
+description = "Human readable serialization format"
+
+[features]
+default = ["std"]
+std = ["serde/std"]
+alloc = ["serde/alloc"]
+# NOTE: disabling "std" requires "alloc"
+
+[dependencies]
+serde = { version = "1.0", default-features = false, features = ["derive"] }
