@@ -1,0 +1,23 @@
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Run tests with coverage
+        uses: actions-rs/tarpaulin@v0.1
+        with:
+          timeout: 60
+          args: '--ignore-tests --out Lcov'
+      - name: Upload to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './lcov.info'
